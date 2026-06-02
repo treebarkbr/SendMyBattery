@@ -1,47 +1,83 @@
-{
-	title = SendMyBattery;
-	items = (
-		{
-			cell = PSGroupCell;
-			label = "UDP Sender";
-			footerText = "Sends a compact UDP packet when the battery percentage changes. No polling or heartbeat is used.";
-		},
-		{
-			cell = PSSwitchCell;
-			default = 1;
-			defaults = "com.treebarkbr.sendmybattery";
-			key = enabled;
-			label = Enabled;
-			PostNotification = "com.treebarkbr.sendmybattery/preferences.changed";
-		},
-		{
-			cell = PSEditTextCell;
-			defaults = "com.treebarkbr.sendmybattery";
-			key = host;
-			label = Host;
-			placeholder = "192.168.1.10";
-			PostNotification = "com.treebarkbr.sendmybattery/preferences.changed";
-		},
-		{
-			cell = PSEditTextCell;
-			defaults = "com.treebarkbr.sendmybattery";
-			key = port;
-			keyboard = numberPad;
-			label = Port;
-			placeholder = 9999;
-			PostNotification = "com.treebarkbr.sendmybattery/preferences.changed";
-		},
-		{
-			cell = PSSwitchCell;
-			default = 1;
-			defaults = "com.treebarkbr.sendmybattery";
-			key = sendInitial;
-			label = "Send Initial Packet";
-			PostNotification = "com.treebarkbr.sendmybattery/preferences.changed";
-		},
-		{
-			cell = PSGroupCell;
-			footerText = "Payload format: {\"battery\":87}";
-		}
-	);
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Sends a compact UDP packet when the battery percentage changes. No polling or heartbeat is used.</string>
+			<key>label</key>
+			<string>UDP Sender</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.treebarkbr.sendmybattery/preferences.changed</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.treebarkbr.sendmybattery</string>
+			<key>key</key>
+			<string>enabled</string>
+			<key>label</key>
+			<string>Enabled</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.treebarkbr.sendmybattery/preferences.changed</string>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.treebarkbr.sendmybattery</string>
+			<key>key</key>
+			<string>host</string>
+			<key>label</key>
+			<string>Host</string>
+			<key>placeholder</key>
+			<string>192.168.1.10</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.treebarkbr.sendmybattery/preferences.changed</string>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.treebarkbr.sendmybattery</string>
+			<key>keyboard</key>
+			<string>numberPad</string>
+			<key>key</key>
+			<string>port</string>
+			<key>label</key>
+			<string>Port</string>
+			<key>placeholder</key>
+			<string>9999</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.treebarkbr.sendmybattery/preferences.changed</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.treebarkbr.sendmybattery</string>
+			<key>key</key>
+			<string>sendInitial</string>
+			<key>label</key>
+			<string>Send Initial Packet</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Payload format: {"battery":87}</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>SendMyBattery</string>
+</dict>
+</plist>
