@@ -1,0 +1,9 @@
+Package: com.treebarkbr.sendmybattery
+Name: SendMyBattery
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: Send battery percentage changes over UDP on rootless iOS jailbreaks.
+Maintainer: nocone <142401119+treebarkbr@users.noreply.github.com>
+Author: nocone <142401119+treebarkbr@users.noreply.github.com>
+Section: Tweaks
+Depends: firmware (>= 16.0), mobilesubstrate, preferenceloader

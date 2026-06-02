@@ -1,0 +1,7 @@
+{
+	entry = {
+		bundle = SendMyBatteryPrefs;
+		cell = PSLinkCell;
+		label = SendMyBattery;
+	};
+}
