@@ -43,13 +43,27 @@ com.treebarkbr.sendmybattery
 
 ## Packet Format
 
-Each UDP packet is compact JSON:
+By default, each UDP packet is compact JSON:
 
 ```json
 {"battery":87}
 ```
 
 The tweak skips sending if battery level is unknown, the host is empty, the port is invalid, or the tweak is disabled.
+
+If Detailed Diagnostics is enabled in Settings, packets include battery state and lightweight tweak usage counters:
+
+```json
+{"battery":87,"state":"unplugged","source":"SendMyBattery","uptimeSeconds":3600,"packetsSent":4,"bytesSent":56,"sendFailures":0}
+```
+
+The tweak also writes local diagnostics to:
+
+```text
+/var/mobile/Library/Preferences/com.treebarkbr.sendmybattery.diagnostics.plist
+```
+
+These counters estimate the tweak's own activity by tracking notifications observed, packets sent, bytes sent, failures, duplicate skips, and active UDP send time. iOS does not expose direct per-tweak mAh usage from SpringBoard.
 
 ## Example Receiver
 

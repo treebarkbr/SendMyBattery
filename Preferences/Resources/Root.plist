@@ -76,6 +76,34 @@
 			<key>footerText</key>
 			<string>Payload format: {"battery":87}</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Detailed diagnostics adds battery state and lightweight tweak usage counters to packets, and writes a local diagnostics plist for troubleshooting.</string>
+			<key>label</key>
+			<string>Diagnostics</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.treebarkbr.sendmybattery/preferences.changed</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.treebarkbr.sendmybattery</string>
+			<key>key</key>
+			<string>detailedDiagnostics</string>
+			<key>label</key>
+			<string>Detailed Diagnostics</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Local diagnostics path: /var/mobile/Library/Preferences/com.treebarkbr.sendmybattery.diagnostics.plist</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>SendMyBattery</string>
