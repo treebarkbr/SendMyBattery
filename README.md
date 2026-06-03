@@ -63,6 +63,8 @@ The tweak also writes local diagnostics to:
 /var/mobile/Library/Preferences/com.treebarkbr.sendmybattery.diagnostics.plist
 ```
 
+Settings -> SendMyBattery also shows a read-only diagnostics snapshot from that file, with a Refresh Diagnostics button.
+
 These counters estimate the tweak's own activity by tracking notifications observed, packets sent, bytes sent, failures, duplicate skips, and active UDP send time. iOS does not expose direct per-tweak mAh usage from SpringBoard.
 
 ## Example Receiver
