@@ -2,4 +2,5 @@
 
 @interface SMBRootListController : PSListController
 - (void)refreshDiagnostics;
+- (id)readDiagnosticValue:(PSSpecifier *)specifier;
 @end

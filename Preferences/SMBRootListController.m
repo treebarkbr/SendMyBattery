@@ -2,8 +2,10 @@
 #import <Preferences/PSSpecifier.h>
 
 static NSString *const SMBDiagnosticsPath = @"/var/mobile/Library/Preferences/com.treebarkbr.sendmybattery.diagnostics.plist";
+static NSString *const SMBRootlessDiagnosticsPath = @"/var/jb/var/mobile/Library/Preferences/com.treebarkbr.sendmybattery.diagnostics.plist";
 static NSString *const SMBDiagnosticsGroupID = @"SMBDiagnosticsSnapshotGroup";
 static NSString *const SMBDiagnosticsRefreshID = @"SMBDiagnosticsRefresh";
+static NSString *const SMBDiagnosticValueKey = @"smbDiagnosticValue";
 
 @implementation SMBRootListController
 
@@ -19,7 +21,7 @@ static NSString *const SMBDiagnosticsRefreshID = @"SMBDiagnosticsRefresh";
 - (void)refreshDiagnostics {
 	NSMutableArray *baseSpecifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
 	[baseSpecifiers addObjectsFromArray:[self diagnosticsSpecifiers]];
-	self.specifiers = baseSpecifiers;
+	_specifiers = baseSpecifiers;
 	[self reloadSpecifiers];
 }
 
@@ -42,10 +44,11 @@ static NSString *const SMBDiagnosticsRefreshID = @"SMBDiagnosticsRefresh";
 	refresh.buttonAction = @selector(refreshDiagnostics);
 	[diagnosticsSpecifiers addObject:refresh];
 
-	NSDictionary *diagnostics = [NSDictionary dictionaryWithContentsOfFile:SMBDiagnosticsPath];
+	NSString *diagnosticsPath = [self diagnosticsPath];
+	NSDictionary *diagnostics = [NSDictionary dictionaryWithContentsOfFile:diagnosticsPath];
 	if (![diagnostics isKindOfClass:NSDictionary.class] || diagnostics.count == 0) {
 		[diagnosticsSpecifiers addObject:[self textSpecifierNamed:@"Status" value:@"No diagnostics file yet"]];
-		[diagnosticsSpecifiers addObject:[self textSpecifierNamed:@"File" value:SMBDiagnosticsPath]];
+		[diagnosticsSpecifiers addObject:[self textSpecifierNamed:@"File" value:diagnosticsPath]];
 		return diagnosticsSpecifiers;
 	}
 
@@ -93,7 +96,7 @@ static NSString *const SMBDiagnosticsRefreshID = @"SMBDiagnosticsRefresh";
 		[diagnosticsSpecifiers addObject:[self textSpecifierNamed:label value:[self displayStringForValue:value key:key]]];
 	}
 
-	[diagnosticsSpecifiers addObject:[self textSpecifierNamed:@"File" value:SMBDiagnosticsPath]];
+	[diagnosticsSpecifiers addObject:[self textSpecifierNamed:@"File" value:diagnosticsPath]];
 	return diagnosticsSpecifiers;
 }
 
@@ -101,12 +104,28 @@ static NSString *const SMBDiagnosticsRefreshID = @"SMBDiagnosticsRefresh";
 	PSSpecifier *specifier = [PSSpecifier preferenceSpecifierNamed:name
 														   target:self
 															  set:NULL
-															  get:NULL
+															  get:@selector(readDiagnosticValue:)
 														   detail:Nil
 															 cell:PSTitleValueCell
 															 edit:Nil];
+	[specifier setProperty:value forKey:SMBDiagnosticValueKey];
 	[specifier setProperty:value forKey:@"value"];
 	return specifier;
+}
+
+- (id)readDiagnosticValue:(PSSpecifier *)specifier {
+	return [specifier propertyForKey:SMBDiagnosticValueKey] ?: @"";
+}
+
+- (NSString *)diagnosticsPath {
+	NSFileManager *fileManager = NSFileManager.defaultManager;
+	if ([fileManager fileExistsAtPath:SMBDiagnosticsPath]) {
+		return SMBDiagnosticsPath;
+	}
+	if ([fileManager fileExistsAtPath:SMBRootlessDiagnosticsPath]) {
+		return SMBRootlessDiagnosticsPath;
+	}
+	return SMBDiagnosticsPath;
 }
 
 - (NSString *)displayStringForValue:(id)value key:(NSString *)key {
