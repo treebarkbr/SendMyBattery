@@ -93,7 +93,3 @@ Copy the generated `.deb` to the jailbroken device and install it with your pref
 sudo dpkg -i com.treebarkbr.sendmybattery_1.0.0_iphoneos-arm64.deb
 sudo sbreload
 ```
-
-## License
-
-MIT
